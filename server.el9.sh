@@ -5,6 +5,10 @@ dnf install -y https://repo.openflighthpc.org/openflight/centos/9/x86_64/openfli
 dnf config-manager --set-enabled openflight-dev
 dnf install -y flight-runway
 
+# Ensure selinux disabled
+setenforce 0
+sed -i 's/^SELINUX=.*/^SELINUX=disabled/g' /etc/selinux/config
+
 # Install Hunter from source
 dnf install -y gcc lsof
 
