@@ -50,7 +50,7 @@ The nodes that have been added to the inventory end up in the hunter "buffer". T
 - Manually setting labels with `hunter parse`
 - Bulk-applying labels based on prefix rules with `hunter parse --auto` 
 
-More information on parsing options and functionality can be seen in [the Flight Hunter README](https://github.com/openflighthpc/flight-hunter/tree/develop#parsing-nodes), the `parse` help page and through `/root/flight-hunter/etc/config.yml`. 
+More information on parsing options and functionality can be seen in [the Flight Hunter README](https://github.com/openflighthpc/flight-hunter/tree/develop#parsing-nodes), the `parse` help page and through `/root/flight-hunter/etc/config.yml.ex`. 
 
 ### Modifying Payload Data
 
