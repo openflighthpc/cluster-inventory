@@ -1,0 +1,57 @@
+#!/bin/bash -l
+
+SUB="$1"
+NODE="$2"
+
+# Arguments Present
+if [[ -z ${SUB} || -z ${NODE} ]] ; then
+    echo "Provide subcommand and node:"
+    echo "    modify SUBCOMMAND NODE [ARGS]"
+    echo
+    echo "Subcommand can be one of:"
+    echo "  ip - change IP address in the inventory for the node"
+    echo "  payload - open node payload in an editor"
+    echo
+    exit 1
+fi
+
+# Subcommand Exists
+case $SUB in
+    "ip")
+        ;;
+    "payload")
+        ;;
+    *)
+        echo "Subcommand '$SUB' doesn't exist"
+        exit 1
+        ;;
+esac
+
+# Node Exists
+if ! hunter show $NODE >>/dev/null 2>&1 ; then
+    echo "Node '$NODE' doesn't exist"
+    exit 1
+fi
+ID=$(hunter show $NODE --plain |awk '{print $1}')
+
+# Run Subcommand
+if [[ "$SUB" == "ip" ]] ; then
+    IP="$(grep '^ip' /root/flight-hunter/var/parsed/$ID.yaml |sed 's/ip: //g')"
+    NEWIP="$3"
+    if [ -z ${NEWIP} ] ; then
+        echo "IP of '$NODE' is $IP"
+        echo "To modify, provide a new IP address as an argument:"
+        echo "  modify ip $NODE 1.2.3.4"
+        exit
+    else
+        sed -i "s/^ip: .*/ip: $NEWIP/g" /root/flight-hunter/var/parsed/$ID.yaml
+        echo "Set IP of '$NODE' to $NEWIP (was $IP)"
+        exit
+    fi
+fi
+
+
+if [[ "$SUB" == "payload" ]] ; then
+    # Run modification script
+    /root/bin/utils/open_for_editing.rb $NODE $ID
+fi
