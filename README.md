@@ -16,6 +16,13 @@ This script:
 - Shares the SSH public key (`id_hunter.pub`) over port 1234 (with `socat`) 
 - Provides access to inventory via command `hunter` (`hunter --help` for more info) 
 
+This can be done through cloud-init as follows:
+```
+#cloud-config
+runcmd:
+  - "curl https://raw.githubusercontent.com/openflighthpc/cluster-inventory/main/server.el9.sh |/bin/bash"
+```
+
 ### Add Client to Inventory
 
 To add a client to the inventory, run:
