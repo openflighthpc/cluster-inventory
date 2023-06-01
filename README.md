@@ -42,3 +42,33 @@ runcmd:
   - "curl https://raw.githubusercontent.com/openflighthpc/cluster-inventory/main/client.el9.sh |SERVER='10.50.1.70' HUNTER_GROUPS='compute,all' PREFIX='node' /bin/bash"
 ```
 
+## Inventory Management
+
+### Parsing Nodes
+
+The nodes that have been added to the inventory end up in the hunter "buffer". These will need to be parsed by either:
+- Manually setting labels with `hunter parse`
+- Bulk-applying labels based on prefix rules with `hunter parse --auto` 
+
+More information on parsing options and functionality can be seen in [the Flight Hunter README](https://github.com/openflighthpc/flight-hunter/tree/develop#parsing-nodes), the `parse` help page and through `/root/flight-hunter/etc/config.yml`. 
+
+### Modifying Payload Data
+
+_Note: Modification can only be performed to nodes which have been parsed and, therefore, have labels_
+
+To modify the payload data of a node:
+```
+modify payload nodename
+```
+
+To modify the hunter IP of a node:
+```
+modify ip nodename
+```
+
+### Bulk Modification 
+
+- Using Groups 
+    - _WIP_
+- Using Genders Syntax
+    - _WIP_
