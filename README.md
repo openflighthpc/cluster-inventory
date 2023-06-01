@@ -6,11 +6,19 @@ Create a cluster asset inventory using Flight Tools on a clean Rocky 9 image. Al
 
 ### Create Inventory Server
 
-_WIP_
+To setup the server, run:
+```bash
+curl https://raw.githubusercontent.com/openflighthpc/cluster-inventory/main/server.el9.sh |/bin/bash
+```
+
+This script: 
+- Runs a `flight-hunter` server on port 8888
+- Shares the SSH public key (`id_hunter.pub`) over port 1234 (with `socat`) 
+- Provides access to inventory via command `hunter` (`hunter --help` for more info) 
 
 ### Add Client to Inventory
 
-To add a client to the inventory, simply run:
+To add a client to the inventory, run:
 ```bash
 curl https://raw.githubusercontent.com/openflighthpc/cluster-inventory/main/client.el9.sh |SERVER="SERVER_IP_ADDRESS" HUNTER_GROUPS='compute,all' PREFIX='node' /bin/bash
 ```
