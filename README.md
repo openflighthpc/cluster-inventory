@@ -35,6 +35,8 @@ Where:
 - `HUNTER_GROUPS` is a comma-separated list of groups [OPTIONAL]
 - `PREFIX` is the label desired for the system minus any numerical (e.g. for `node01` naming this would be `node`) [OPTIONAL]
 
+The script will setup the tools needed to send before sending data and getting the SSH pub key to trust from the server. To see and change what was run to send information to the inventory server, see `/root/send.sh`.
+
 This can be done through cloud-init as follows:
 ```
 #cloud-config
