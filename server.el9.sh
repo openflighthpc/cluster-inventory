@@ -38,13 +38,19 @@ systemctl daemon-reload
 systemctl enable flight-hunter --now
 
 # Make hunter easy to use
-mkdir -p /root/bin/
+mkdir -p /root/bin/utils
 cat << 'EOF' > /root/bin/hunter
 #!/bin/bash -l
 
 /opt/flight/bin/ruby /root/flight-hunter/bin/hunter $@
 EOF
 chmod +x /root/bin/hunter
+
+curl https://raw.githubusercontent.com/openflighthpc/cluster-inventory/main/scripts/modify > /root/bin/modify
+chmod +x /root/bin/modify
+
+curl https://raw.githubusercontent.com/openflighthpc/cluster-inventory/main/scripts/open_for_editing.rb > /root/bin/utils/open_for_editing.rb
+chmod +x /root/bin/utils/open_for_editing.rb
 
 # Share Public Key
 ssh-keygen -t rsa -q -f /root/.ssh/id_hunter -N ''
