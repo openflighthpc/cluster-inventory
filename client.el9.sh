@@ -1,5 +1,5 @@
 #!/bin/bash
-dnf install -y vim git socat
+dnf install -y vim git socat dmidecode
 
 # Install Ruby
 dnf install -y https://repo.openflighthpc.org/openflight/centos/9/x86_64/openflighthpc-release-3-1.noarch.rpm
