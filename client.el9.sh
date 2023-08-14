@@ -41,7 +41,7 @@ if [ ! -z \${PREFIX} ] ; then
 fi
 
 if [ ! -z \${USE_SERIAL_AS_LABEL} ] ; then
-    LABEL_ARG="--label '\$(dmidecode -s system-serial-number)'"
+    LABEL_ARG="--label \$(dmidecode -s system-serial-number)"
 fi
 
 /opt/flight/bin/ruby /root/flight-hunter/bin/hunter send -p 8888 -c '/opt/flight/bin/ruby /root/flight-gather/bin/gather show -f' -s \$SERVER \$GROUPS_ARG \$IDENTITY_ARG \$LABEL_ARG --auth hunter
