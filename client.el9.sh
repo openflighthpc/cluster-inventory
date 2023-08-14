@@ -30,6 +30,7 @@ cat << EOF > /root/send.sh
 SERVER="$SERVER"
 HUNTER_GROUPS="$HUNTER_GROUPS"
 PREFIX="$PREFIX"
+USE_SERIAL_AS_LABEL="$USE_SERIAL_AS_LABEL"
 
 if [ ! -z \${HUNTER_GROUPS} ] ; then 
     GROUPS_ARG="--groups \${HUNTER_GROUPS}"
@@ -39,7 +40,11 @@ if [ ! -z \${PREFIX} ] ; then
     IDENTITY_ARG="--prefix \${PREFIX}"
 fi
 
-/opt/flight/bin/ruby /root/flight-hunter/bin/hunter send -p 8888 -c '/opt/flight/bin/ruby /root/flight-gather/bin/gather show -f' -s \$SERVER \$GROUPS_ARG \$IDENTITY_ARG --auth hunter
+if [ ! -z \${USE_SERIAL_AS_LABEL} ] ; then
+    LABEL_ARG="--label '\$(dmidecode -s system-serial-number)'"
+fi
+
+/opt/flight/bin/ruby /root/flight-hunter/bin/hunter send -p 8888 -c '/opt/flight/bin/ruby /root/flight-gather/bin/gather show -f' -s \$SERVER \$GROUPS_ARG \$IDENTITY_ARG \$LABEL_ARG --auth hunter
 socat -u TCP:\$SERVER:1234 STDOUT >> /root/.ssh/authorized_keys
 EOF
 
